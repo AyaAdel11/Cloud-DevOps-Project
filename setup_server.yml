@@ -1,0 +1,36 @@
+---
+- name: Emergency Jenkins Installation
+  hosts: jenkins_server
+  become: yes
+  tasks:
+    - name: Pre-setup Clean and Dependencies
+      shell: |
+        rm -rf /var/lib/apt/lists/*
+        apt-get update
+        apt-get install -y openjdk-17-jre docker.io curl
+
+    - name: Download Jenkins Package Directly
+      get_url:
+        url: https://pkg.jenkins.io/debian-stable/binary/jenkins_2.479.1_all.deb
+        dest: /tmp/jenkins.deb
+
+    - name: Install Jenkins Package via dpkg
+      shell: |
+        dpkg -i /tmp/jenkins.deb || apt-get install -f -y
+
+    - name: Start and Enable Services
+      shell: |
+        systemctl start docker
+        systemctl enable docker
+        systemctl start jenkins
+        systemctl enable jenkins
+        usermod -aG docker ubuntu
+        usermod -aG docker jenkins
+
+    - name: Get Jenkins password
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_pass
+
+    - name: Display Password
+      debug:
+        msg: "BOOM! SUCCESS! Your password is: {{ jenkins_pass.stdout }}"

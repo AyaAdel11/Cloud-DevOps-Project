@@ -1,13 +1,7 @@
-FROM node:14
-
+FROM python:3.9-slim
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+COPY FinalProject/requirements.txt . 
+RUN pip install -r requirements.txt
+COPY FinalProject/ .
+EXPOSE 5000
+CMD ["python", "app.py"]
