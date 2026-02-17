@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-web-app
+  namespace: ivolve # ده الـ namespace المطلوب في التاسك
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-container
+        image: ayaadel02/cloud-devops-project:latest 
+        ports:
+        - containerPort: 5000
