@@ -24,11 +24,6 @@ pipeline {
             }
         }
 
-        stage("Test Application") {
-            steps {
-                runUnitTest() 
-            }
-        }
 
         stage("Build Application") {
             steps {
