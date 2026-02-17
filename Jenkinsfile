@@ -5,7 +5,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = 'Cloud-DevOps-Project'
+        APP_NAME = 'cloud-devops-project'
         DOCKER_USER = "ayaadel02"
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "1.0.0-${BUILD_NUMBER}"
