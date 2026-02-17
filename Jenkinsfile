@@ -25,12 +25,6 @@ pipeline {
         }
 
 
-        stage("Build Application") {
-            steps {
-                buildApp()
-            }
-        }
-
         stage("Build Docker Image") {
             steps {
                 buildImage("${IMAGE_NAME}:${IMAGE_TAG}")
