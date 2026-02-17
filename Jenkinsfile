@@ -60,9 +60,7 @@ pipeline {
                 git config user.name "Jenkins Bot"
                 git add deployment.yaml
                 git commit -m "Update image to ${IMAGE_TAG} [skip ci]"
-                
-                # إعداد الـ URL ليشمل الـ Credentials للرفع
-                git push https://${GIT_USER}:${GIT_PASS}@github.com/AyaAdel11/Jenkins-app.git main
+                git push https://${GIT_USER}:${GIT_PASS}@github.com/AyaAdel11/Cloud-DevOps-Project.git main
             """
         }
     }
