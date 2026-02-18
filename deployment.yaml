@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: python-container
-        image: ayaadel02/cloud-devops-project:1.0.0-118
+        image: ayaadel02/cloud-devops-project:1.0.0-119
         ports:
         - containerPort: 5000
