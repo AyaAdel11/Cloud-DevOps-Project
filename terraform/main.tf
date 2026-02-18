@@ -9,3 +9,8 @@ module "server" {
   vpc_id    = module.network.vpc_id
   subnet_id = module.network.subnet_id
 }
+
+module "eks" {
+  source         = "./modules/eks"
+  public_subnets = module.network.public_subnets 
+}

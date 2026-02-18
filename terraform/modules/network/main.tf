@@ -3,11 +3,24 @@ resource "aws_vpc" "main" {
   tags       = { Name = "ivolve-vpc" }
 }
 
+data "aws_availability_zones" "available" {}
+
 resource "aws_subnet" "public" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_cidr
+  count                   = 2 
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.${count.index}.0/24" 
   map_public_ip_on_launch = true
-  tags       = { Name = "ivolve-public" }
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+  tags = {
+    Name = "ivolve-public-${count.index}"
+  }
+}
+
+resource "aws_route_table_association" "a" {
+  count          = 2
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -22,7 +35,3 @@ resource "aws_route_table" "public" {
   }
 }
 
-resource "aws_route_table_association" "a" {
-  subnet_id      = aws_subnet.public.id
-  route_table_id = aws_route_table.public.id
-}
