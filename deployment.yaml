@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-web-app
-  namespace: ivolve # ده الـ namespace المطلوب في التاسك
+  namespace: ivolve 
 spec:
   replicas: 1
   selector:
